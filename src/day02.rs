@@ -1,9 +1,10 @@
 use std::fs;
 use std::io::{BufRead, BufReader};
 
-fn main() {
+pub fn run() {
+    println!("\nDay 02 Answers:");
     let score_xyz_as_shapes = cal_score_from_guide(line_to_shapes_xyz_shapes);
-    println!("Total score (XYZ as shapes): {}", score_xyz_as_shapes);
+    println!("Total score (XYZ as shapes)  : {}", score_xyz_as_shapes);
 
     let score_xyz_as_outcomes = cal_score_from_guide(line_to_shapes_xyz_outcomes);
     println!("Total score (XYZ as outcomes): {}", score_xyz_as_outcomes);
@@ -13,7 +14,7 @@ fn cal_score_from_guide<F>(func: F) -> u16
 where
     F: Fn(&str) -> Vec<Shape>,
 {
-    let f = fs::File::open("strategy-guide.txt").unwrap();
+    let f = fs::File::open("data/02-strategy-guide.txt").unwrap();
     let reader = BufReader::new(f);
 
     reader
