@@ -3,28 +3,17 @@ use std::fs;
 use std::io::{BufRead, BufReader};
 
 pub fn run() {
-    let f = fs::File::open("data/03-rucksacks.txt").unwrap();
-    let reader = BufReader::new(f);
-
-    let sum_of_dup_item_priorities: u32 = reader
-        .lines()
-        .map(|l| l.unwrap())
-        .filter(|l| l.trim().len() > 0)
+    let sum_of_dup_item_priorities: u32 = line_iter("data/03-rucksacks.txt")
         .map(|l| find_duplicates_in_rucksack(&l))
         .sum();
 
     println!("\nDay 03 Answers:");
     println!(
-        "Sum of dup. item priorities: {:}",
+        "Sum of dup. item priorities: {}",
         sum_of_dup_item_priorities
     );
 
-    let f = fs::File::open("data/03-rucksacks.txt").unwrap();
-    let reader = BufReader::new(f);
-    let sum_of_group_item_priorities: u32 = reader
-        .lines()
-        .map(|l| l.unwrap())
-        .filter(|l| l.trim().len() > 0)
+    let sum_of_group_item_priorities: u32 = line_iter("data/03-rucksacks.txt")
         .collect::<Vec<String>>()
         .as_slice()
         .chunks(3)
@@ -32,9 +21,18 @@ pub fn run() {
         .sum();
 
     println!(
-        "Sum of group item priorities: {:}",
+        "Sum of group item priorities: {}",
         sum_of_group_item_priorities
     );
+}
+
+fn line_iter(fname: &str) -> impl Iterator<Item = String> {
+    let f = fs::File::open(fname).unwrap();
+    let reader = BufReader::new(f);
+    reader
+        .lines()
+        .map(|l| l.unwrap())
+        .filter(|l| l.trim().len() > 0)
 }
 
 fn find_duplicates_in_rucksack(s: &str) -> u32 {
