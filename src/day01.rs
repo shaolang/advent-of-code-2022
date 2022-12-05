@@ -26,5 +26,8 @@ pub fn run() {
 
     println!("Day 01 Answers:");
     println!("            Most calories: {}", tops.iter().last().unwrap());
-    println!("Total calories from top 3: {}", tops.into_iter().sum::<u64>());
+    println!(
+        "Total calories from top 3: {}",
+        tops.into_iter().sum::<u64>()
+    );
 }
